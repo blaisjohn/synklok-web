@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Synklok — Automatic sample rate sync for RME M-1620 Pro D</title>
-  <meta name="description" content="A tiny macOS menu bar app that auto-syncs your RME M-1620 Pro D's sample rate to the incoming MADI input. Set it once. Sync forever." />
-  <meta name="theme-color" content="#09090b" />
+  <meta name="description" content="A tiny macOS menu bar app that keeps your RME M-1620 Pro D's sample rate matched to the incoming MADI input. Set it once. Sync forever." />
+  <meta name="theme-color" content="#0b0b0d" />
 
   <!-- Open Graph / social -->
   <meta property="og:title" content="Synklok — Automatic sample rate sync for RME M-1620 Pro D" />
-  <meta property="og:description" content="A tiny macOS menu bar app that auto-syncs your RME M-1620 Pro D to the incoming MADI rate." />
+  <meta property="og:description" content="A tiny macOS menu bar app that keeps your RME M-1620 Pro D matched to the incoming MADI rate." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://synklok.app" />
   <meta property="og:image" content="https://synklok.app/og.png" />
@@ -20,8 +20,8 @@
 
   <!-- Favicon: the metronome mark, green-400 to match the app icon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234ade80'%3E%3Cpath d='M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z'/%3E%3C/svg%3E" />
-
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preload" href="/fonts/share-tech-mono.woff2" as="font" type="font/woff2" crossorigin />
 
   <!-- Built from src/input.css; see tailwind.config.js for the rebuild command -->
   <link rel="stylesheet" href="/styles.css" />
@@ -30,251 +30,181 @@
 <body class="text-zinc-100 font-sans antialiased">
 
   <!-- ── Nav ─────────────────────────────────────────────── -->
-  <nav class="border-b border-white/5 backdrop-blur-md bg-zinc-950/60 sticky top-0 z-50">
+  <nav class="border-b border-white/5 sticky top-0 z-50 bg-[#0b0b0d]/80 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
       <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-green-400">
-          <path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-green-400"><path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/></svg>
         Synklok
       </a>
-      <div class="flex items-center gap-5 text-sm">
-        <a href="#features" class="hidden sm:inline text-zinc-400 hover:text-zinc-100 transition">Features</a>
-        <a href="#how" class="hidden sm:inline text-zinc-400 hover:text-zinc-100 transition">How it works</a>
-        <a href="#install" class="whitespace-nowrap text-zinc-400 hover:text-zinc-100 transition">Install</a>
-        <a href="https://github.com/blaisjohn/synklok"
-           class="text-zinc-400 hover:text-zinc-100 transition flex items-center gap-1.5">
-          <svg viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
-            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.69-.01-1.35-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-          </svg>
-          GitHub
-        </a>
+      <div class="flex items-center gap-5 text-sm text-zinc-400">
+        <a href="#how" class="hidden sm:inline hover:text-zinc-100 transition">How it works</a>
+        <a href="#install" class="whitespace-nowrap hover:text-zinc-100 transition">Install</a>
+        <a href="https://github.com/blaisjohn/synklok" class="hidden sm:inline hover:text-zinc-100 transition">GitHub</a>
+        <a href="/download" class="inline-flex items-center bg-green-400 hover:bg-green-300 text-zinc-950 font-semibold px-3 py-1.5 rounded-md transition">Download</a>
       </div>
     </div>
   </nav>
 
   <!-- ── Hero ────────────────────────────────────────────── -->
   <section class="relative overflow-hidden">
-    <div class="grid-bg absolute inset-0 opacity-50 pointer-events-none"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(800px 400px at 50% 30%, rgba(74,222,128,0.10), transparent 70%)"></div>
+    <div class="max-w-6xl mx-auto px-6 pt-20 pb-10 text-center relative">
+      <p class="led text-green-400/80 text-xs uppercase tracking-[0.3em] mb-5">MADI · Sample rate · Auto-follow</p>
+      <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight leading-[0.95]">
+        Your M-1620<br/><span class="glow-green">keeps up now.</span>
+      </h1>
+      <p class="mt-6 text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+        Pro Tools switches to 96k. Your MADIface follows. Synklok makes sure your
+        <span class="whitespace-nowrap">RME M-1620 Pro D</span> does too — automatically, from your menu bar.
+      </p>
+    </div>
 
-    <div class="max-w-6xl mx-auto px-6 pt-20 pb-24 relative">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 text-green-300 text-xs font-medium mb-6">
-            <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
-            For RME M-1620 Pro D
-          </div>
-          <h1 class="text-5xl sm:text-6xl font-semibold tracking-tight leading-[1.05]">
-            Set it once.<br/>
-            <span class="text-green-400">Sync forever.</span>
-          </h1>
-          <p class="mt-6 text-lg text-zinc-400 max-w-xl leading-relaxed">
-            A tiny macOS menu bar app that auto-syncs your RME M-1620 Pro D's
-            sample rate to whatever's coming in over MADI. No more clicking
-            through the web UI or rack unit mid-session.
-          </p>
-          <div class="mt-8 flex flex-wrap items-center gap-3">
-            <a href="/download"
-               class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-zinc-950 font-semibold px-5 py-2.5 rounded-lg transition">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" class="w-4 h-4"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
-              Download for Mac
-            </a>
-            <a href="https://github.com/blaisjohn/synklok"
-               class="inline-flex items-center gap-2 border border-white/10 hover:border-white/25 text-zinc-200 font-medium px-5 py-2.5 rounded-lg transition">
-              <svg viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
-                <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.69-.01-1.35-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-              </svg>
-              View on GitHub
-            </a>
-          </div>
-          <p class="mt-6 text-xs text-zinc-500">
-            macOS 14+ · Updates itself · Windows coming soon · Free &amp; open source (MIT)
-          </p>
+    <!-- Rack unit demo -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 pb-6 relative">
+      <div class="flex items-stretch" aria-label="Interactive demo: a rack unit showing the MADI input rate and the device rate">
+        <div class="ear hidden sm:flex w-10 rounded-l-md flex-col justify-between items-center py-3 border border-black/60">
+          <span class="screw w-3.5 h-3.5 rounded-full"></span><span class="screw w-3.5 h-3.5 rounded-full"></span>
         </div>
-
-        <!-- Menu bar + popover mockup -->
-        <div class="flex flex-col items-center lg:items-end gap-2">
-          <div class="w-[300px] flex justify-end">
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-[13px] font-mono text-zinc-100">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/></svg>
-              96k
-            </span>
-          </div>
-          <div class="popover w-[300px] rounded-xl bg-zinc-900/85 text-sm overflow-hidden">
-            <!-- header -->
-            <div class="px-4 pt-3 pb-3 flex items-center gap-2.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-green-400 shadow-[0_0_10px_2px_rgba(34,197,94,0.4)]"></span>
-              <div class="flex flex-col">
-                <span class="font-semibold">Connected</span>
-                <span class="text-[11px] text-zinc-400">172.20.0.1</span>
-              </div>
-            </div>
-            <div class="border-t border-white/5"></div>
-            <!-- stats -->
-            <div class="px-4 py-3 space-y-2 font-mono text-[13px]">
-              <div class="flex justify-between"><span class="text-zinc-400 font-sans">Device rate</span><span class="font-medium">96.0 kHz</span></div>
-              <div class="flex justify-between"><span class="text-zinc-400 font-sans">MADI input</span><span class="font-medium">96.0 kHz</span></div>
-              <div class="flex justify-between items-center"><span class="text-zinc-400 font-sans">MADI sync</span>
-                <span class="flex items-center gap-1.5 font-sans">
-                  <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
-                  <span class="font-medium">Locked</span>
-                </span>
-              </div>
-            </div>
-            <div class="border-t border-white/5"></div>
-            <!-- history -->
-            <div class="px-4 py-3 space-y-1">
-              <div class="text-[10px] text-zinc-500 uppercase tracking-wider mb-1.5">Recent changes</div>
-              <div class="flex gap-3 text-[12px] font-mono">
-                <span class="text-zinc-400 w-14">14:32:08</span>
-                <span>48.0 → 96.0 kHz</span>
-              </div>
-              <div class="flex gap-3 text-[12px] font-mono">
-                <span class="text-zinc-400 w-14">13:15:41</span>
-                <span>96.0 → 48.0 kHz</span>
-              </div>
-              <div class="flex gap-3 text-[12px] font-mono">
-                <span class="text-zinc-400 w-14">11:09:22</span>
-                <span>44.1 → 48.0 kHz</span>
-              </div>
-            </div>
-            <div class="border-t border-white/5"></div>
-            <!-- toggles -->
-            <div class="px-4 py-2 space-y-1">
-              <div class="flex items-center gap-2 py-1">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-zinc-400"><path d="M3 12a9 9 0 0 1 15.45-6.36L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.45 6.36L3 16M3 21v-5h5"/></svg>
-                <span>Auto-sync enabled</span>
-                <span class="ml-auto inline-flex items-center w-8 h-5 bg-green-500 rounded-full p-0.5 justify-end">
-                  <span class="w-4 h-4 bg-white rounded-full shadow"></span>
-                </span>
-              </div>
-              <div class="flex items-center gap-2 py-1">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-zinc-400"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                <span>Launch at login</span>
-                <span class="ml-auto inline-flex items-center w-8 h-5 bg-green-500 rounded-full p-0.5 justify-end">
-                  <span class="w-4 h-4 bg-white rounded-full shadow"></span>
-                </span>
-              </div>
-            </div>
-            <div class="border-t border-white/5"></div>
-            <!-- actions -->
-            <div class="px-2 py-1.5">
-              <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded text-[13px] cursor-default">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-zinc-400"><circle cx="12" cy="12" r="10"/><path d="M12 7v8m0 0l-3.5-3.5M12 15l3.5-3.5"/></svg>
-                <span>Check for Updates…</span>
-              </div>
-              <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded text-[13px] cursor-default">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-zinc-400"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                <span>Settings…</span>
-              </div>
-              <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded text-[13px] text-red-300 cursor-default">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path d="M18.36 6.64a9 9 0 1 1-12.73 0M12 2v10"/></svg>
-                <span>Quit Synklok</span>
-              </div>
+        <div class="panel flex-1 rounded-md sm:rounded-none px-5 sm:px-8 py-6 grid grid-cols-2 sm:grid-cols-[auto_1fr_1fr_auto] gap-5 sm:gap-8 items-center">
+          <div class="col-span-2 sm:col-span-1 flex sm:flex-col items-center sm:items-start justify-between gap-2">
+            <div class="text-[11px] font-semibold tracking-[0.2em] text-zinc-400">SYNKLOK</div>
+            <div class="text-[10px] text-zinc-500 led">RATE FOLLOWER</div>
+            <div class="flex items-center gap-2 sm:mt-1">
+              <span id="led-sync" class="dot dot-on"></span><span class="text-[10px] led text-zinc-400">SYNC</span>
             </div>
           </div>
+          <div>
+            <div class="text-[10px] led text-zinc-500 mb-1.5 tracking-widest">MADI IN</div>
+            <div class="window scanlines rounded-md px-4 py-3">
+              <span id="disp-madi" class="led glow-green text-4xl sm:text-5xl">48.0</span><span class="led text-green-400/60 text-sm ml-1">kHz</span>
+            </div>
+          </div>
+          <div>
+            <div class="text-[10px] led text-zinc-500 mb-1.5 tracking-widest">DEVICE</div>
+            <div class="window scanlines rounded-md px-4 py-3">
+              <span id="disp-dev" class="led glow-green text-4xl sm:text-5xl">48.0</span><span class="led text-green-400/60 text-sm ml-1">kHz</span>
+            </div>
+          </div>
+          <div class="hidden sm:flex flex-col items-center gap-2">
+            <div class="knurl w-12 h-12 rounded-full border border-black/70 shadow-inner"></div>
+            <div class="text-[9px] led text-zinc-500">AUTO</div>
+          </div>
+        </div>
+        <div class="ear hidden sm:flex w-10 rounded-r-md flex-col justify-between items-center py-3 border border-black/60">
+          <span class="screw w-3.5 h-3.5 rounded-full"></span><span class="screw w-3.5 h-3.5 rounded-full"></span>
         </div>
       </div>
+
+      <!-- Try it -->
+      <div class="mt-8 flex flex-col items-center gap-3">
+        <div class="text-sm text-zinc-400">Try it — change the Pro Tools session rate:</div>
+        <div class="flex flex-wrap justify-center gap-2">
+          <button type="button" class="rate-btn led border border-white/15 text-zinc-200 px-4 py-2 rounded-md hover:border-green-400/60 transition" data-rate="44.1">44.1</button>
+          <button type="button" class="rate-btn led border border-white/15 text-zinc-200 px-4 py-2 rounded-md hover:border-green-400/60 transition" data-rate="48.0" aria-pressed="true">48</button>
+          <button type="button" class="rate-btn led border border-white/15 text-zinc-200 px-4 py-2 rounded-md hover:border-green-400/60 transition" data-rate="96.0">96</button>
+          <button type="button" class="rate-btn led border border-white/15 text-zinc-200 px-4 py-2 rounded-md hover:border-green-400/60 transition" data-rate="192.0">192</button>
+        </div>
+        <div id="demo-status" class="led text-xs text-zinc-500 h-4" aria-live="polite">Locked at 48.0 kHz</div>
+      </div>
+
+      <div class="mt-10 flex flex-wrap justify-center gap-3">
+        <a href="/download" class="inline-flex items-center gap-2 bg-green-400 hover:bg-green-300 text-zinc-950 font-semibold px-6 py-3 rounded-lg transition">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" class="w-4 h-4"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
+          Download for Mac
+        </a>
+        <a href="https://github.com/blaisjohn/synklok" class="inline-flex items-center gap-2 border border-white/10 hover:border-white/25 text-zinc-200 font-medium px-6 py-3 rounded-lg transition">
+          <svg viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.69-.01-1.35-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <p class="mt-4 text-center text-xs text-zinc-500 led">macOS 14+ · Free &amp; open source (MIT) · Updates itself · Windows coming soon</p>
+    </div>
+  </section>
+
+  <!-- ── Spec strip ──────────────────────────────────────── -->
+  <section class="mt-16 border-y border-white/5 bg-white/[0.015]">
+    <div class="max-w-6xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div><div class="led text-3xl glow-green">≤2s</div><div class="text-sm text-zinc-400 mt-1">to match a new rate</div></div>
+      <div><div class="led text-3xl glow-green">2×/s</div><div class="text-sm text-zinc-400 mt-1">checks the M-1620</div></div>
+      <div><div class="led text-3xl glow-green">0</div><div class="text-sm text-zinc-400 mt-1">accounts or analytics</div></div>
+      <div><div class="led text-3xl glow-green">MIT</div><div class="text-sm text-zinc-400 mt-1">free &amp; open source</div></div>
     </div>
   </section>
 
   <!-- ── Problem ─────────────────────────────────────────── -->
-  <section class="border-t border-white/5">
+  <section>
     <div class="max-w-3xl mx-auto px-6 py-24">
-      <p class="text-2xl sm:text-3xl text-zinc-200 leading-snug font-medium tracking-tight">
-        Pro Tools jumps from 48 to 96 kHz. Your MADIface follows.
-        Your M-1620 doesn't.
+      <p class="led text-xs text-amber-300/80 tracking-[0.25em] mb-5">THE PROBLEM</p>
+      <p class="text-2xl sm:text-3xl text-zinc-100 leading-snug font-semibold tracking-tight">
+        Pro Tools jumps from 48 to 96 kHz. Your MADIface follows. Your M-1620 doesn't.
       </p>
       <p class="mt-6 text-lg text-zinc-400 leading-relaxed">
-        Now you've got dropouts, clicks, or audio at the wrong pitch — until
-        you click through the web UI or the rack unit's front panel.
-      </p>
-      <p class="mt-6 text-lg text-zinc-400 leading-relaxed">
-        Synklok closes the loop. When the MADI input rate changes, it tells the
-        M-1620 to match — within two seconds. You don't have to think about it.
+        Now you've got dropouts, clicks, or audio at the wrong pitch — until you click through
+        the web UI or the rack unit's front panel. Synklok closes the loop: when the MADI input
+        rate changes, it tells the M-1620 to match. You don't have to think about it.
       </p>
     </div>
   </section>
 
   <!-- ── Features ────────────────────────────────────────── -->
-  <section id="features" class="border-t border-white/5">
-    <div class="max-w-6xl mx-auto px-6 py-24">
-      <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-3">Built to disappear</h2>
-      <p class="text-zinc-400 mb-12 max-w-xl">Three things matter. Synklok does them well, and nothing else.</p>
-
-      <div class="grid md:grid-cols-3 gap-5">
-        <div class="border border-white/5 rounded-xl p-6 bg-zinc-950/30">
-          <div class="w-10 h-10 rounded-lg bg-green-500/10 text-green-400 flex items-center justify-center mb-5">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M3 12a9 9 0 0 1 15.45-6.36L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.45 6.36L3 16M3 21v-5h5"/></svg>
-          </div>
-          <h3 class="font-semibold mb-2">Set and forget</h3>
-          <p class="text-sm text-zinc-400 leading-relaxed">
-            Runs quietly in the menu bar. Launches at login. Updates itself. Once installed, you never have to think about it again.
-          </p>
-        </div>
-
-        <div class="border border-white/5 rounded-xl p-6 bg-zinc-950/30">
-          <div class="w-10 h-10 rounded-lg bg-green-500/10 text-green-400 flex items-center justify-center mb-5">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-          </div>
-          <h3 class="font-semibold mb-2">Glance-able status</h3>
-          <p class="text-sm text-zinc-400 leading-relaxed">
-            Connection state, current rate, MADI sync, and recent changes — all visible in one click. Or put the rate right in the menu bar.
-          </p>
-        </div>
-
-        <div class="border border-white/5 rounded-xl p-6 bg-zinc-950/30">
-          <div class="w-10 h-10 rounded-lg bg-green-500/10 text-green-400 flex items-center justify-center mb-5">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          </div>
-          <h3 class="font-semibold mb-2">Built for pro audio</h3>
-          <p class="text-sm text-zinc-400 leading-relaxed">
-            Native macOS app. Open source. No analytics. No accounts. Talks directly to the M-1620's REST API — the only other thing it contacts is synklok.app, once a day, to check for updates.
-          </p>
-        </div>
+  <section id="features" class="max-w-6xl mx-auto px-6 pb-24">
+    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-12">Built like studio gear.<br/><span class="text-zinc-500">Quiet until it matters.</span></h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="panel rounded-lg p-6">
+        <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">AUTO-SYNC</span></div>
+        <h3 class="font-semibold text-lg mb-2">Set and forget</h3>
+        <p class="text-sm text-zinc-400 leading-relaxed">Lives in the menu bar, launches at login, updates itself. You stop thinking about clocking.</p>
+      </div>
+      <div class="panel rounded-lg p-6">
+        <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">STATUS</span></div>
+        <h3 class="font-semibold text-lg mb-2">One glance</h3>
+        <p class="text-sm text-zinc-400 leading-relaxed">Device rate, MADI input, lock state and recent changes in one click — or just “96k” right in the menu bar.</p>
+      </div>
+      <div class="panel rounded-lg p-6">
+        <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">DIRECT</span></div>
+        <h3 class="font-semibold text-lg mb-2">Talks to the hardware</h3>
+        <p class="text-sm text-zinc-400 leading-relaxed">A native Mac app using the M-1620's own control API. No accounts, no analytics — besides your M-1620, it only checks synklok.app once a day for updates.</p>
       </div>
     </div>
   </section>
 
   <!-- ── How it works ────────────────────────────────────── -->
   <section id="how" class="border-t border-white/5">
-    <div class="max-w-4xl mx-auto px-6 py-24">
-      <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-3">How it works</h2>
-      <p class="text-zinc-400 mb-12 max-w-xl">A simple loop, polling twice a second.</p>
+    <div class="max-w-6xl mx-auto px-6 py-24">
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">How it works</h2>
+      <p class="text-zinc-400 mb-12 max-w-xl">A simple loop, checking twice a second.</p>
 
-      <div class="border border-white/5 rounded-xl p-8 bg-zinc-950/30">
-        <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-sm font-medium justify-center">
-          <div class="px-4 py-2.5 rounded-lg bg-zinc-900 border border-white/5">Pro Tools</div>
-          <span class="text-zinc-600">→</span>
-          <div class="px-4 py-2.5 rounded-lg bg-zinc-900 border border-white/5">MADIface Pro</div>
-          <span class="text-zinc-600">→</span>
-          <div class="px-4 py-2.5 rounded-lg bg-zinc-900 border border-white/5">MADI cable</div>
-          <span class="text-zinc-600">→</span>
-          <div class="px-4 py-2.5 rounded-lg bg-zinc-900 border border-white/5">M-1620 Pro D</div>
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-3 lg:gap-0">
+        <div class="panel rounded-lg px-5 py-4 lg:flex-1">
+          <div class="led text-[10px] text-zinc-500 tracking-widest">01 · DAW</div>
+          <div class="font-semibold mt-1">Pro Tools</div>
         </div>
-        <div class="mt-8 flex justify-center">
-          <div class="px-4 py-2.5 rounded-lg bg-green-500/10 border border-green-400/30 text-green-300 flex items-center gap-2 text-sm font-medium">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-              <path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/>
-            </svg>
-            Synklok watches the M-1620's MADI input rate &amp; matches the device rate
-          </div>
+        <div class="cable h-6 w-0.5 mx-auto lg:h-0.5 lg:w-10 lg:mx-0"></div>
+        <div class="panel rounded-lg px-5 py-4 lg:flex-1">
+          <div class="led text-[10px] text-zinc-500 tracking-widest">02 · INTERFACE</div>
+          <div class="font-semibold mt-1">MADIface Pro</div>
+        </div>
+        <div class="cable h-6 w-0.5 mx-auto lg:h-0.5 lg:w-10 lg:mx-0"></div>
+        <div class="panel rounded-lg px-5 py-4 lg:flex-1">
+          <div class="led text-[10px] text-zinc-500 tracking-widest">03 · TRANSPORT</div>
+          <div class="font-semibold mt-1">MADI coax</div>
+        </div>
+        <div class="cable h-6 w-0.5 mx-auto lg:h-0.5 lg:w-10 lg:mx-0"></div>
+        <div class="panel rounded-lg px-5 py-4 lg:flex-1 ring-1 ring-green-400/30">
+          <div class="led text-[10px] text-zinc-500 tracking-widest">04 · CONVERTER</div>
+          <div class="font-semibold mt-1">M-1620 Pro D</div>
         </div>
       </div>
 
-      <div class="mt-10 grid sm:grid-cols-3 gap-6 text-sm">
-        <div>
-          <div class="text-zinc-500 text-xs uppercase tracking-wider mb-1.5">Polls</div>
-          <div class="text-zinc-200">Twice a second when connected</div>
-        </div>
-        <div>
-          <div class="text-zinc-500 text-xs uppercase tracking-wider mb-1.5">Latency</div>
-          <div class="text-zinc-200">≤ 2 seconds to match</div>
-        </div>
-        <div>
-          <div class="text-zinc-500 text-xs uppercase tracking-wider mb-1.5">Connection</div>
-          <div class="text-zinc-200">USB REMOTE or LAN</div>
-        </div>
+      <div class="mt-6 flex items-center justify-center gap-3 rounded-lg border border-green-400/25 bg-green-400/[0.06] px-5 py-3 text-sm text-green-200">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-green-400 flex-shrink-0"><path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/></svg>
+        Synklok watches the M-1620's MADI input rate and sets the device rate to match.
+      </div>
+
+      <div class="mt-10 grid sm:grid-cols-3 gap-6">
+        <div><div class="led text-xs text-zinc-500 tracking-widest mb-1.5">CHECKS</div><div class="text-zinc-200">Twice a second when connected</div></div>
+        <div><div class="led text-xs text-zinc-500 tracking-widest mb-1.5">MATCHES</div><div class="text-zinc-200">Within two seconds of a change</div></div>
+        <div><div class="led text-xs text-zinc-500 tracking-widest mb-1.5">CONNECTS</div><div class="text-zinc-200">USB REMOTE or your LAN</div></div>
       </div>
     </div>
   </section>
@@ -282,40 +212,42 @@
   <!-- ── Install ─────────────────────────────────────────── -->
   <section id="install" class="border-t border-white/5">
     <div class="max-w-4xl mx-auto px-6 py-24">
-      <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-3">Install</h2>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Install</h2>
       <p class="text-zinc-400 mb-10 max-w-xl">Two minutes, once. After that Synklok checks for new versions daily and installs them in one click.</p>
 
-      <ol class="space-y-6">
+      <div class="panel rounded-xl p-6 sm:p-8">
+        <ol class="space-y-6">
           <li class="flex gap-4">
-            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-300 text-sm font-semibold flex items-center justify-center">1</span>
+            <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">01</span>
             <div><div class="font-medium text-zinc-100">Download Synklok</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed"><a href="/download" class="text-green-300 hover:text-green-200 underline underline-offset-2">Download the DMG</a>. It's signed and notarized by Apple.</div></div>
           </li>
           <li class="flex gap-4">
-            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-300 text-sm font-semibold flex items-center justify-center">2</span>
+            <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">02</span>
             <div><div class="font-medium text-zinc-100">Drag it to Applications</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Open the DMG and drag Synklok onto the Applications folder.</div></div>
           </li>
           <li class="flex gap-4">
-            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-300 text-sm font-semibold flex items-center justify-center">3</span>
+            <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">03</span>
             <div><div class="font-medium text-zinc-100">Open it</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Launch Synklok from Applications and click <span class="text-zinc-200">Open</span> when macOS asks about an app downloaded from the Internet.</div></div>
           </li>
           <li class="flex gap-4">
-            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-300 text-sm font-semibold flex items-center justify-center">4</span>
+            <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">04</span>
             <div><div class="font-medium text-zinc-100">Allow local network access</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Click <span class="text-zinc-200">Allow</span> when Synklok asks to find devices on your local network — it needs this to reach the M-1620. Missed it? System Settings → Privacy &amp; Security → Local Network.</div></div>
           </li>
           <li class="flex gap-4">
-            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-300 text-sm font-semibold flex items-center justify-center">5</span>
+            <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">05</span>
             <div><div class="font-medium text-zinc-100">Find the metronome</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Synklok lives in the menu bar, not the Dock. Click the metronome for status, and turn on <span class="text-zinc-200">Launch at login</span>.</div></div>
           </li>
-      </ol>
+        </ol>
+      </div>
 
-      <div class="mt-12 border border-white/5 rounded-xl p-6 bg-zinc-950/30">
-        <h3 class="font-semibold mb-2">Coming from the old “M-1620 Rate Sync” script?</h3>
+      <div class="mt-6 rounded-xl border border-amber-300/20 bg-amber-300/[0.04] p-6">
+        <div class="flex items-center gap-2 mb-2"><span class="dot dot-amber"></span><h3 class="font-semibold">Coming from the old “M-1620 Rate Sync” script?</h3></div>
         <p class="text-sm text-zinc-400 leading-relaxed mb-4">
           Remove it first — it also changes the sample rate and will fight Synklok. Synklok warns you if it
           finds it. Paste this into Terminal; it asks for your Mac password.
         </p>
         <div class="relative">
-          <pre id="remove-cmd" class="text-[12px] font-mono text-zinc-300 bg-zinc-900 border border-white/5 rounded-lg p-4 pr-20 overflow-x-auto whitespace-pre-wrap break-all">launchctl unload ~/Library/LaunchAgents/com.studio.m1620sync.plist 2&gt;/dev/null; rm -f ~/Library/LaunchAgents/com.studio.m1620sync.plist; sudo launchctl unload /Library/LaunchDaemons/com.studio.m1620sync.plist 2&gt;/dev/null; sudo rm -f /Library/LaunchDaemons/com.studio.m1620sync.plist /usr/local/bin/studio/m1620_rate_sync.py; sudo rmdir /usr/local/bin/studio 2&gt;/dev/null; sudo pkgutil --forget com.studio.m1620sync &gt;/dev/null 2&gt;&amp;1; rm -f /tmp/m1620_rate_sync.log; echo &quot;Old M-1620 Rate Sync removed&quot;</pre>
+          <pre id="remove-cmd" class="led text-[12px] text-zinc-300 window rounded-lg p-4 pr-20 overflow-x-auto whitespace-pre-wrap break-all">launchctl unload ~/Library/LaunchAgents/com.studio.m1620sync.plist 2&gt;/dev/null; rm -f ~/Library/LaunchAgents/com.studio.m1620sync.plist; sudo launchctl unload /Library/LaunchDaemons/com.studio.m1620sync.plist 2&gt;/dev/null; sudo rm -f /Library/LaunchDaemons/com.studio.m1620sync.plist /usr/local/bin/studio/m1620_rate_sync.py; sudo rmdir /usr/local/bin/studio 2&gt;/dev/null; sudo pkgutil --forget com.studio.m1620sync &gt;/dev/null 2&gt;&amp;1; rm -f /tmp/m1620_rate_sync.log; echo &quot;Old M-1620 Rate Sync removed&quot;</pre>
           <button type="button" id="copy-remove-cmd"
                   class="absolute top-2 right-2 text-xs font-medium px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 text-zinc-200 transition">Copy</button>
         </div>
@@ -326,61 +258,31 @@
   <!-- ── Compatibility ───────────────────────────────────── -->
   <section class="border-t border-white/5">
     <div class="max-w-4xl mx-auto px-6 py-24">
-      <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-8">Compatibility</h2>
-
-      <div class="grid sm:grid-cols-2 gap-5">
-        <!-- macOS card -->
-        <div class="border border-white/5 rounded-xl p-6 bg-zinc-950/30">
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-8">Compatibility</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="panel rounded-xl p-6">
           <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2.5">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-zinc-200"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-              <span class="font-semibold">macOS</span>
-            </div>
-            <span class="inline-flex items-center gap-1.5 text-[11px] font-medium px-2 py-0.5 rounded-full bg-green-500/10 text-green-300">
-              <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
-              Available
-            </span>
+            <span class="font-semibold">macOS</span>
+            <span class="flex items-center gap-2 led text-[11px] text-green-300"><span class="dot dot-on"></span>AVAILABLE</span>
           </div>
           <ul class="space-y-2 text-sm text-zinc-400">
-            <li class="flex items-start gap-2">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5"><path d="M20 6L9 17l-5-5"/></svg>
-              <span>macOS 14 Sonoma or newer</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5"><path d="M20 6L9 17l-5-5"/></svg>
-              <span>Apple Silicon &amp; Intel — universal binary</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5"><path d="M20 6L9 17l-5-5"/></svg>
-              <span>Follows the M-1620's coaxial MADI input (optical MADI and word clock are on the roadmap)</span>
-            </li>
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>macOS 14 Sonoma or newer</span></li>
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>Apple Silicon &amp; Intel — universal binary</span></li>
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>Follows the M-1620's coaxial MADI input (optical MADI and word clock are on the roadmap)</span></li>
           </ul>
         </div>
-
-        <!-- Windows card -->
-        <div class="border border-white/5 rounded-xl p-6 bg-zinc-950/30">
+        <div class="panel rounded-xl p-6">
           <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2.5">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-zinc-200"><path d="M3 5.5L10.5 4.5v7H3V5.5zm0 13l7.5 1v-7H3v6zm8.5 1.2L21 21V12.5h-9.5v7.2zm0-15.4V11.5H21V3l-9.5 1.3z"/></svg>
-              <span class="font-semibold">Windows</span>
-            </div>
-            <span class="inline-flex items-center gap-1.5 text-[11px] font-medium px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-400">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3 h-3"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              Coming soon
-            </span>
+            <span class="font-semibold">Windows</span>
+            <span class="flex items-center gap-2 led text-[11px] text-amber-300"><span class="dot dot-amber"></span>COMING SOON</span>
           </div>
           <p class="text-sm text-zinc-400 leading-relaxed">
-            A native Windows 10 / 11 build is on the roadmap. The core sync
-            logic is the same — only the menu-bar/UI layer needs porting.
-            Star the GitHub repo to be notified when it lands.
+            A native Windows 10 / 11 build is on the roadmap. The core sync logic is the same — only
+            the menu bar / UI layer needs porting. Star the GitHub repo to be notified when it lands.
           </p>
         </div>
       </div>
-
-      <div class="mt-8 flex items-start gap-3 text-sm text-zinc-400">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 text-zinc-500 flex-shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <span>Both versions require the <span class="font-medium text-zinc-200">RME M-1620 Pro D</span> connected via USB REMOTE or on the same LAN.</span>
-      </div>
+      <p class="mt-6 text-sm text-zinc-400">Both versions require the <span class="text-zinc-200">RME M-1620 Pro D</span> connected via USB REMOTE or on the same LAN.</p>
     </div>
   </section>
 
@@ -388,24 +290,43 @@
   <footer class="border-t border-white/5">
     <div class="max-w-6xl mx-auto px-6 py-10 flex flex-wrap items-center justify-between gap-4 text-sm text-zinc-500">
       <div class="flex items-center gap-2">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-green-400">
-          <path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/>
-        </svg>
-        <span class="font-medium text-zinc-300">Synklok</span>
-        <span class="text-zinc-600">·</span>
-        <span>© 2026</span>
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-green-400"><path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/></svg>
+        <span class="font-medium text-zinc-300">Synklok</span><span class="text-zinc-600">·</span><span>© 2026</span>
       </div>
-      <div class="flex items-center gap-5">
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
         <a href="https://github.com/blaisjohn/synklok" class="hover:text-zinc-200 transition">GitHub</a>
-        <span class="text-zinc-700">·</span>
         <a href="https://github.com/blaisjohn/synklok/blob/main/LICENSE" class="hover:text-zinc-200 transition">MIT License</a>
-        <span class="text-zinc-700">·</span>
         <span>Not affiliated with RME or Synthax</span>
       </div>
     </div>
   </footer>
 
   <script>
+    // Rack demo: the MADI display jumps to the new rate; the device display
+    // goes amber, then Synklok "catches up" and both lock green.
+    const madi = document.getElementById('disp-madi');
+    const dev = document.getElementById('disp-dev');
+    const syncLed = document.getElementById('led-sync');
+    const demoStatus = document.getElementById('demo-status');
+    let demoTimer;
+    document.querySelectorAll('.rate-btn').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('.rate-btn').forEach(b => b.removeAttribute('aria-pressed'));
+      btn.setAttribute('aria-pressed', 'true');
+      const rate = btn.dataset.rate;
+      if (madi.textContent === rate && dev.textContent === rate) return;
+      clearTimeout(demoTimer);
+      madi.textContent = rate;
+      dev.className = 'led glow-amber text-4xl sm:text-5xl';
+      syncLed.className = 'dot dot-amber';
+      demoStatus.textContent = `MADI input changed → ${rate} kHz · syncing…`;
+      demoTimer = setTimeout(() => {
+        dev.textContent = rate;
+        dev.className = 'led glow-green text-4xl sm:text-5xl';
+        syncLed.className = 'dot dot-on';
+        demoStatus.textContent = `Locked at ${rate} kHz`;
+      }, 900);
+    }));
+
     document.getElementById('copy-remove-cmd').addEventListener('click', async (e) => {
       const text = document.getElementById('remove-cmd').textContent;
       try {
