@@ -240,18 +240,6 @@
         </ol>
       </div>
 
-      <div class="mt-6 rounded-xl border border-amber-300/20 bg-amber-300/[0.04] p-6">
-        <div class="flex items-center gap-2 mb-2"><span class="dot dot-amber"></span><h3 class="font-semibold">Coming from the old “M-1620 Rate Sync” script?</h3></div>
-        <p class="text-sm text-zinc-400 leading-relaxed mb-4">
-          Remove it first — it also changes the sample rate and will fight Synklok. Synklok warns you if it
-          finds it. Paste this into Terminal; it asks for your Mac password.
-        </p>
-        <div class="relative">
-          <pre id="remove-cmd" class="led text-[12px] text-zinc-300 window rounded-lg p-4 pr-20 overflow-x-auto whitespace-pre-wrap break-all">launchctl unload ~/Library/LaunchAgents/com.studio.m1620sync.plist 2&gt;/dev/null; rm -f ~/Library/LaunchAgents/com.studio.m1620sync.plist; sudo launchctl unload /Library/LaunchDaemons/com.studio.m1620sync.plist 2&gt;/dev/null; sudo rm -f /Library/LaunchDaemons/com.studio.m1620sync.plist /usr/local/bin/studio/m1620_rate_sync.py; sudo rmdir /usr/local/bin/studio 2&gt;/dev/null; sudo pkgutil --forget com.studio.m1620sync &gt;/dev/null 2&gt;&amp;1; rm -f /tmp/m1620_rate_sync.log; echo &quot;Old M-1620 Rate Sync removed&quot;</pre>
-          <button type="button" id="copy-remove-cmd"
-                  class="absolute top-2 right-2 text-xs font-medium px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 text-zinc-200 transition">Copy</button>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -326,17 +314,6 @@
         demoStatus.textContent = `Locked at ${rate} kHz`;
       }, 900);
     }));
-
-    document.getElementById('copy-remove-cmd').addEventListener('click', async (e) => {
-      const text = document.getElementById('remove-cmd').textContent;
-      try {
-        await navigator.clipboard.writeText(text);
-        e.target.textContent = 'Copied';
-      } catch {
-        e.target.textContent = 'Select & copy';
-      }
-      setTimeout(() => { e.target.textContent = 'Copy'; }, 2000);
-    });
   </script>
 </body>
 </html>
