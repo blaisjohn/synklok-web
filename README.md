@@ -5,7 +5,17 @@ menu bar app that auto-syncs the RME M-1620 Pro D sample rate to its MADI input.
 
 ## Stack
 
-Plain HTML + Tailwind CSS via CDN. No build step. One file: `index.html`.
+Plain HTML in `index.html`, styled with Tailwind compiled to a committed
+`styles.css`. After changing classes in `index.html`, rebuild it:
+
+```bash
+npx tailwindcss@3.4.19 -i src/input.css -o styles.css --minify
+```
+
+`downloads/` (DMGs + Sparkle `appcast.xml`) and `_redirects` (the `/download`
+link) are written by Synklok's `scripts/release.sh` — don't edit them by hand.
+`og.png` and `apple-touch-icon.png` come from Synklok's `scripts/make-og-image.swift`
+and `scripts/make-icon.swift --full-bleed`.
 
 ## Local preview
 

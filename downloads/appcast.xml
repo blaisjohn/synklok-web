@@ -3,6 +3,21 @@
     <channel>
         <title>Synklok</title>
         <item>
+            <title>1.0.3</title>
+            <pubDate>Thu, 15 Oct 2026 14:16:04 -0500</pubDate>
+            <link>https://synklok.app</link>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>1.0.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<h3>Synklok 1.0.3</h3>
+<ul>
+  <li><b>About window.</b> Settings → General → <i>About Synklok</i> shows the version, license, and acknowledgements.</li>
+  <li>Synklok is now open source under the MIT license.</li>
+</ul>
+]]></description>
+            <enclosure url="https://synklok.app/downloads/Synklok-1.0.3-4.dmg" length="1938557" type="application/octet-stream" sparkle:edSignature="p8fosk/p9oApJAHsFTe5DXvKeYY4qED1IhCgA4hAUrR9ZO3Zo3ncP786CljWWSH5xY0YMXbqsB6OMNk83omfDw=="/>
+        </item>
+        <item>
             <title>1.0.2</title>
             <pubDate>Thu, 15 Oct 2026 13:20:56 -0500</pubDate>
             <link>https://synklok.app</link>

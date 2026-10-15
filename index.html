@@ -12,47 +12,19 @@
   <meta property="og:description" content="A tiny macOS menu bar app that auto-syncs your RME M-1620 Pro D to the incoming MADI rate." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://synklok.app" />
+  <meta property="og:image" content="https://synklok.app/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Synklok — Set it once. Sync forever." />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Favicon: SF-Symbol-style metronome in SVG -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2322c55e'%3E%3Cpath d='M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z'/%3E%3C/svg%3E" />
+  <!-- Favicon: the metronome mark, green-400 to match the app icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234ade80'%3E%3Cpath d='M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z'/%3E%3C/svg%3E" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-          },
-        },
-      },
-    };
-  </script>
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-  <style>
-    body {
-      background:
-        radial-gradient(900px circle at 20% -10%, rgba(34, 197, 94, 0.10), transparent 50%),
-        radial-gradient(700px circle at 90% 10%, rgba(59, 130, 246, 0.06), transparent 50%),
-        #09090b;
-    }
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 32px 32px;
-    }
-    /* Popover mockup */
-    .popover {
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.06) inset,
-        0 30px 60px -15px rgba(0, 0, 0, 0.6),
-        0 0 0 1px rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(20px);
-    }
-  </style>
+  <!-- Built from src/input.css; see tailwind.config.js for the rebuild command -->
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 
 <body class="text-zinc-100 font-sans antialiased">
@@ -67,8 +39,9 @@
         Synklok
       </a>
       <div class="flex items-center gap-5 text-sm">
-        <a href="#features" class="text-zinc-400 hover:text-zinc-100 transition">Features</a>
-        <a href="#how" class="text-zinc-400 hover:text-zinc-100 transition">How it works</a>
+        <a href="#features" class="hidden sm:inline text-zinc-400 hover:text-zinc-100 transition">Features</a>
+        <a href="#how" class="hidden sm:inline text-zinc-400 hover:text-zinc-100 transition">How it works</a>
+        <a href="#install" class="whitespace-nowrap text-zinc-400 hover:text-zinc-100 transition">Install</a>
         <a href="https://github.com/blaisjohn/synklok"
            class="text-zinc-400 hover:text-zinc-100 transition flex items-center gap-1.5">
           <svg viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
@@ -101,24 +74,32 @@
             through the web UI or rack unit mid-session.
           </p>
           <div class="mt-8 flex flex-wrap items-center gap-3">
-            <a href="https://github.com/blaisjohn/synklok"
+            <a href="/download"
                class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-zinc-950 font-semibold px-5 py-2.5 rounded-lg transition">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" class="w-4 h-4"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
+              Download for Mac
+            </a>
+            <a href="https://github.com/blaisjohn/synklok"
+               class="inline-flex items-center gap-2 border border-white/10 hover:border-white/25 text-zinc-200 font-medium px-5 py-2.5 rounded-lg transition">
               <svg viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
                 <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.69-.01-1.35-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
               </svg>
-              Star on GitHub
+              View on GitHub
             </a>
-            <span class="inline-flex items-center gap-2 text-zinc-500 text-sm px-4 py-2.5">
-              v1.0 — coming soon
-            </span>
           </div>
           <p class="mt-6 text-xs text-zinc-500">
-            macOS 14+ · Windows coming soon · Free &amp; open source
+            macOS 14+ · Updates itself · Windows coming soon · Free &amp; open source (MIT)
           </p>
         </div>
 
-        <!-- Popover mockup -->
-        <div class="flex justify-center lg:justify-end">
+        <!-- Menu bar + popover mockup -->
+        <div class="flex flex-col items-center lg:items-end gap-2">
+          <div class="w-[300px] flex justify-end">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-[13px] font-mono text-zinc-100">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/></svg>
+              96k
+            </span>
+          </div>
           <div class="popover w-[300px] rounded-xl bg-zinc-900/85 text-sm overflow-hidden">
             <!-- header -->
             <div class="px-4 pt-3 pb-3 flex items-center gap-2.5">
@@ -179,6 +160,10 @@
             <!-- actions -->
             <div class="px-2 py-1.5">
               <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded text-[13px] cursor-default">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-zinc-400"><circle cx="12" cy="12" r="10"/><path d="M12 7v8m0 0l-3.5-3.5M12 15l3.5-3.5"/></svg>
+                <span>Check for Updates…</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded text-[13px] cursor-default">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-zinc-400"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                 <span>Settings…</span>
               </div>
@@ -224,7 +209,7 @@
           </div>
           <h3 class="font-semibold mb-2">Set and forget</h3>
           <p class="text-sm text-zinc-400 leading-relaxed">
-            Runs quietly in the menu bar. Launches at login. Once installed, you never have to think about it again.
+            Runs quietly in the menu bar. Launches at login. Updates itself. Once installed, you never have to think about it again.
           </p>
         </div>
 
@@ -234,7 +219,7 @@
           </div>
           <h3 class="font-semibold mb-2">Glance-able status</h3>
           <p class="text-sm text-zinc-400 leading-relaxed">
-            Connection state, current rate, MADI sync, and recent changes — all visible in one click. No hunting.
+            Connection state, current rate, MADI sync, and recent changes — all visible in one click. Or put the rate right in the menu bar.
           </p>
         </div>
 
@@ -244,7 +229,7 @@
           </div>
           <h3 class="font-semibold mb-2">Built for pro audio</h3>
           <p class="text-sm text-zinc-400 leading-relaxed">
-            Native macOS app. Open source. No analytics. No accounts. Talks directly to the M-1620's REST API.
+            Native macOS app. Open source. No analytics. No accounts. Talks directly to the M-1620's REST API — the only other thing it contacts is synklok.app, once a day, to check for updates.
           </p>
         </div>
       </div>
@@ -294,6 +279,50 @@
     </div>
   </section>
 
+  <!-- ── Install ─────────────────────────────────────────── -->
+  <section id="install" class="border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-6 py-24">
+      <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-3">Install</h2>
+      <p class="text-zinc-400 mb-10 max-w-xl">Two minutes, once. After that Synklok checks for new versions daily and installs them in one click.</p>
+
+      <ol class="space-y-6">
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-300 text-sm font-semibold flex items-center justify-center">1</span>
+            <div><div class="font-medium text-zinc-100">Download Synklok</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed"><a href="/download" class="text-green-300 hover:text-green-200 underline underline-offset-2">Download the DMG</a>. It's signed and notarized by Apple. Use a browser, email, or AirDrop to pass it on — not WhatsApp, which marks files so macOS refuses to open them.</div></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-300 text-sm font-semibold flex items-center justify-center">2</span>
+            <div><div class="font-medium text-zinc-100">Drag it to Applications</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Open the DMG and drag Synklok onto the Applications folder.</div></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-300 text-sm font-semibold flex items-center justify-center">3</span>
+            <div><div class="font-medium text-zinc-100">Open it</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Launch Synklok from Applications and click <span class="text-zinc-200">Open</span> when macOS asks about an app downloaded from the Internet.</div></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-300 text-sm font-semibold flex items-center justify-center">4</span>
+            <div><div class="font-medium text-zinc-100">Allow local network access</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Click <span class="text-zinc-200">Allow</span> when Synklok asks to find devices on your local network — it needs this to reach the M-1620. Missed it? System Settings → Privacy &amp; Security → Local Network.</div></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-300 text-sm font-semibold flex items-center justify-center">5</span>
+            <div><div class="font-medium text-zinc-100">Find the metronome</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Synklok lives in the menu bar, not the Dock. Click the metronome for status, and turn on <span class="text-zinc-200">Launch at login</span>.</div></div>
+          </li>
+      </ol>
+
+      <div class="mt-12 border border-white/5 rounded-xl p-6 bg-zinc-950/30">
+        <h3 class="font-semibold mb-2">Coming from the old “M-1620 Rate Sync” script?</h3>
+        <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+          Remove it first — it also changes the sample rate and will fight Synklok. Synklok warns you if it
+          finds it. Paste this into Terminal; it asks for your Mac password.
+        </p>
+        <div class="relative">
+          <pre id="remove-cmd" class="text-[12px] font-mono text-zinc-300 bg-zinc-900 border border-white/5 rounded-lg p-4 pr-20 overflow-x-auto whitespace-pre-wrap break-all">launchctl unload ~/Library/LaunchAgents/com.studio.m1620sync.plist 2&gt;/dev/null; rm -f ~/Library/LaunchAgents/com.studio.m1620sync.plist; sudo launchctl unload /Library/LaunchDaemons/com.studio.m1620sync.plist 2&gt;/dev/null; sudo rm -f /Library/LaunchDaemons/com.studio.m1620sync.plist /usr/local/bin/studio/m1620_rate_sync.py; sudo rmdir /usr/local/bin/studio 2&gt;/dev/null; sudo pkgutil --forget com.studio.m1620sync &gt;/dev/null 2&gt;&amp;1; rm -f /tmp/m1620_rate_sync.log; echo &quot;Old M-1620 Rate Sync removed&quot;</pre>
+          <button type="button" id="copy-remove-cmd"
+                  class="absolute top-2 right-2 text-xs font-medium px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 text-zinc-200 transition">Copy</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Compatibility ───────────────────────────────────── -->
   <section class="border-t border-white/5">
     <div class="max-w-4xl mx-auto px-6 py-24">
@@ -320,6 +349,10 @@
             <li class="flex items-start gap-2">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5"><path d="M20 6L9 17l-5-5"/></svg>
               <span>Apple Silicon &amp; Intel — universal binary</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Follows the M-1620's coaxial MADI input (optical MADI and word clock are on the roadmap)</span>
             </li>
           </ul>
         </div>
@@ -365,10 +398,24 @@
       <div class="flex items-center gap-5">
         <a href="https://github.com/blaisjohn/synklok" class="hover:text-zinc-200 transition">GitHub</a>
         <span class="text-zinc-700">·</span>
+        <a href="https://github.com/blaisjohn/synklok/blob/main/LICENSE" class="hover:text-zinc-200 transition">MIT License</a>
+        <span class="text-zinc-700">·</span>
         <span>Not affiliated with RME or Synthax</span>
       </div>
     </div>
   </footer>
 
+  <script>
+    document.getElementById('copy-remove-cmd').addEventListener('click', async (e) => {
+      const text = document.getElementById('remove-cmd').textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        e.target.textContent = 'Copied';
+      } catch {
+        e.target.textContent = 'Select & copy';
+      }
+      setTimeout(() => { e.target.textContent = 'Copy'; }, 2000);
+    });
+  </script>
 </body>
 </html>
