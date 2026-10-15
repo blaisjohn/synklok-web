@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Synklok</title>
+        <item>
+            <title>1.0.2</title>
+            <pubDate>Thu, 15 Oct 2026 13:20:56 -0500</pubDate>
+            <link>https://synklok.app</link>
+            <sparkle:version>3</sparkle:version>
+            <sparkle:shortVersionString>1.0.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<h3>Synklok 1.0.2</h3>
+<ul>
+  <li><b>Automatic updates.</b> Synklok now checks for new versions and installs them in one click. Use <i>Check for Updates…</i> in the menu, or turn automatic checks on or off in Settings → General.</li>
+  <li><b>Copy diagnostics.</b> Settings → General → Logs → <i>Copy diagnostics</i> copies a report you can paste into a message.</li>
+  <li><b>Sample rate in the menu bar.</b> Optional, in Settings → General → Menu bar. A warning icon replaces the metronome if the M-1620 and MADI input stay out of sync.</li>
+  <li><b>App icon.</b></li>
+</ul>
+]]></description>
+            <enclosure url="https://synklok.app/downloads/Synklok-1.0.2-3.dmg" length="1918462" type="application/octet-stream" sparkle:edSignature="cuO8bemG50MKVa8Y2QU6g5iZQo235fJT7whkqpJDTyUaZ8LD5qXul0wcUMKHuLhGqzULa3ApD/+/NIM6g85wAQ=="/>
+        </item>
+    </channel>
+</rss>
