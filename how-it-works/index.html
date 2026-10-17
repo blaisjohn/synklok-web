@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Synklok works — RME M-1620 Pro D sample rate sync</title>
+  <meta name="description" content="A plain-language guide to how Synklok keeps an RME M-1620 Pro D's sample rate matched to its MADI input: the problem, what the app does, what you need, and its limits." />
+  <meta name="theme-color" content="#0b0b0d" />
+
+  <!-- Open Graph / social -->
+  <meta property="og:title" content="How Synklok works with the RME M-1620 Pro D" />
+  <meta property="og:description" content="The problem, what Synklok does about it, what you need, and its honest limits — in plain words." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://synklok.app/how-it-works/" />
+  <meta property="og:image" content="https://synklok.app/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Synklok — Set it once. Sync forever." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon: the metronome mark, green-400 to match the app icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234ade80'%3E%3Cpath d='M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preload" href="/fonts/share-tech-mono.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- Built from src/input.css; see tailwind.config.js for the rebuild command -->
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body class="text-zinc-100 font-sans antialiased">
+
+  <!-- ── Nav ─────────────────────────────────────────────── -->
+  <nav class="border-b border-white/5 sticky top-0 z-50 bg-[#0b0b0d]/80 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-green-400"><path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/></svg>
+        Synklok
+      </a>
+      <div class="flex items-center gap-5 text-sm text-zinc-400">
+        <a href="/how-it-works/" aria-current="page" class="hidden sm:inline text-zinc-100">How it works</a>
+        <a href="/#install" class="whitespace-nowrap hover:text-zinc-100 transition">Install</a>
+        <a href="https://github.com/blaisjohn/synklok" class="hidden sm:inline hover:text-zinc-100 transition">GitHub</a>
+        <a href="/download" class="inline-flex items-center bg-green-400 hover:bg-green-300 text-zinc-950 font-semibold px-3 py-1.5 rounded-md transition">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Header ──────────────────────────────────────────── -->
+  <header class="relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(700px 320px at 50% 20%, rgba(74,222,128,0.09), transparent 70%)"></div>
+    <div class="max-w-6xl mx-auto px-6 pt-20 pb-12 relative">
+      <p class="led text-green-400/80 text-xs uppercase tracking-[0.3em] mb-5">Explainer · RME M-1620 Pro D</p>
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[0.95]">
+        How Synklok works<br/><span class="glow-green">in plain words.</span>
+      </h1>
+      <p class="mt-6 text-lg text-zinc-400 leading-relaxed max-w-3xl">
+        Your M-1620 Pro D doesn't change its sample rate when the MADI signal coming into it does.
+        Synklok watches the converter and changes it for you. Here's how that works, what you need,
+        and where the limits are.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-2 text-sm">
+        <a href="#problem" class="led border border-white/10 hover:border-green-400/60 text-zinc-300 px-3 py-1.5 rounded-md transition"><span class="text-zinc-500">01</span> The problem</a>
+        <a href="#what" class="led border border-white/10 hover:border-green-400/60 text-zinc-300 px-3 py-1.5 rounded-md transition"><span class="text-zinc-500">02</span> What it does</a>
+        <a href="#need" class="led border border-white/10 hover:border-green-400/60 text-zinc-300 px-3 py-1.5 rounded-md transition"><span class="text-zinc-500">03</span> What you need</a>
+        <a href="#settings" class="led border border-white/10 hover:border-green-400/60 text-zinc-300 px-3 py-1.5 rounded-md transition"><span class="text-zinc-500">04</span> Settings</a>
+        <a href="#limits" class="led border border-white/10 hover:border-green-400/60 text-zinc-300 px-3 py-1.5 rounded-md transition"><span class="text-zinc-500">05</span> Good to know</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── 01 The problem ──────────────────────────────────── -->
+  <section id="problem" class="scroll-mt-14 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-20 grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center">
+      <div>
+        <p class="led text-xs text-amber-300/80 tracking-[0.25em] mb-5">01 · THE PROBLEM</p>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-6">The M-1620 doesn't follow on its own</h2>
+        <div class="space-y-5 text-zinc-400 leading-relaxed">
+          <p>
+            <span class="text-zinc-100 font-medium">Sample rate</span> is how many times per second digital audio
+            is measured — 44.1k, 48k, 96k and so on. Every device in a digital chain has to run at the same rate,
+            ticking in step with one shared clock.
+          </p>
+          <p>
+            <span class="text-zinc-100 font-medium">MADI</span> is a single cable that carries up to 64 channels
+            of audio between your MADI interface and the M-1620. When you change your session's rate, the
+            interface switches, and so does the signal on that cable. The M-1620 Pro D doesn't. It stays at
+            whatever rate it was set to — on its front panel or in its web remote — until someone changes it.
+          </p>
+        </div>
+        <blockquote class="mt-6 border-l-2 border-amber-300/50 pl-4">
+          <p class="text-zinc-200">“The external clock must match the sample rate configured”</p>
+          <footer class="mt-1 text-xs text-zinc-500">RME M-1620 Pro D User's Guide, section 11.2</footer>
+        </blockquote>
+        <p class="mt-6 text-zinc-400 leading-relaxed">
+          When the two disagree you get clicks, dropouts, or audio at the wrong speed and pitch — until
+          someone walks over to the rack and fixes it.
+        </p>
+      </div>
+
+      <!-- Static display: session at 96k, converter still at 48k -->
+      <figure>
+        <div class="panel rounded-lg p-5 sm:p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-[11px] font-semibold tracking-[0.2em] text-zinc-400">M-1620 PRO D</span>
+            <span class="flex items-center gap-2"><span class="dot dot-amber"></span><span class="text-[10px] led text-amber-300">OUT OF STEP</span></span>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <div class="text-[10px] led text-zinc-500 mb-1.5 tracking-widest">MADI IN</div>
+              <div class="window scanlines rounded-md px-3 sm:px-4 py-3">
+                <span class="led glow-green text-3xl sm:text-4xl">96.0</span><span class="led text-green-400/60 text-xs sm:text-sm ml-1">kHz</span>
+              </div>
+            </div>
+            <div>
+              <div class="text-[10px] led text-zinc-500 mb-1.5 tracking-widest">DEVICE</div>
+              <div class="window scanlines rounded-md px-3 sm:px-4 py-3">
+                <span class="led glow-amber text-3xl sm:text-4xl">48.0</span><span class="led text-amber-300/60 text-xs sm:text-sm ml-1">kHz</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="mt-3 text-sm text-zinc-500">The session moved to 96k. The converter is still at 48k.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ── 02 What Synklok does ────────────────────────────── -->
+  <section id="what" class="scroll-mt-14 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <p class="led text-xs text-green-400/80 tracking-[0.25em] mb-5">02 · WHAT SYNKLOK DOES</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-6">It asks, compares, and sets</h2>
+      <p class="text-zinc-400 leading-relaxed max-w-3xl">
+        The M-1620 has a remote-control interface built in, documented in RME's manual. Synklok uses it to talk
+        to the converter directly — over a USB cable or your network. Nothing gets installed on the M-1620, and
+        no audio ever passes through Synklok.
+      </p>
+
+      <div class="mt-10 grid lg:grid-cols-[1.4fr_1fr] gap-6 items-start">
+        <div class="panel rounded-xl p-6 sm:p-8">
+          <ol class="space-y-7">
+            <li class="flex gap-4">
+              <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">01</span>
+              <div>
+                <div class="led text-[10px] text-zinc-500 tracking-widest">ASK · TWICE A SECOND</div>
+                <div class="text-sm text-zinc-400 mt-1.5 leading-relaxed">Synklok asks the M-1620 three things: what rate it's set to, what rate is arriving on its coaxial MADI input, and whether that input is <span class="text-zinc-200">locked</span> — receiving a clean, steady signal.</div>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">02</span>
+              <div>
+                <div class="led text-[10px] text-zinc-500 tracking-widest">COMPARE</div>
+                <div class="text-sm text-zinc-400 mt-1.5 leading-relaxed">If the MADI input is at a standard rate — 44.1, 48, 88.2, 96, 176.4 or 192 kHz — and the M-1620 is set to something else, they don't agree.</div>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">03</span>
+              <div>
+                <div class="led text-[10px] text-zinc-500 tracking-widest">SET</div>
+                <div class="text-sm text-zinc-400 mt-1.5 leading-relaxed">Synklok tells the M-1620 to switch to the MADI rate, then gives it two seconds to settle before checking again. Most changes are done within a second or two.</div>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- What the menu shows, drawn as a front panel -->
+        <figure>
+          <div class="panel rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="dot dot-on"></span>
+              <span class="text-[11px] font-semibold tracking-[0.2em] text-zinc-400">CONNECTED</span>
+              <span class="ml-auto text-[10px] led text-zinc-500">172.20.0.1</span>
+            </div>
+            <div class="window scanlines rounded-md px-4 py-3 space-y-2 led text-sm">
+              <div class="flex justify-between gap-4"><span class="text-green-400/60">DEVICE RATE</span><span class="glow-green">96.0 kHz</span></div>
+              <div class="flex justify-between gap-4"><span class="text-green-400/60">MADI INPUT</span><span class="glow-green">96.0 kHz</span></div>
+              <div class="flex justify-between gap-4"><span class="text-green-400/60">MADI SYNC</span><span class="glow-green">LOCKED</span></div>
+            </div>
+            <div class="mt-4 text-[10px] led text-zinc-500 tracking-widest">RECENT CHANGES</div>
+            <div class="mt-1.5 led text-xs text-zinc-300">14:02 &nbsp;48.0 → 96.0 kHz</div>
+          </div>
+          <figcaption class="mt-3 text-sm text-zinc-500">Click the metronome in your menu bar to see this at any time.</figcaption>
+        </figure>
+      </div>
+
+      <div class="mt-12 grid sm:grid-cols-2 gap-x-10 gap-y-8 max-w-4xl">
+        <div>
+          <div class="led text-xs text-zinc-500 tracking-widest mb-1.5">ANY DAW · ANY MADI SOURCE</div>
+          <p class="text-zinc-300 leading-relaxed">It watches the converter, not your software. Pro Tools, Logic, Cubase, Reaper, a live console or a MADI router all work the same way: if the rate arriving at the M-1620 changes, Synklok follows.</p>
+        </div>
+        <div>
+          <div class="led text-xs text-zinc-500 tracking-widest mb-1.5">WARNS YOU</div>
+          <p class="text-zinc-300 leading-relaxed">If the M-1620 and a locked MADI input still disagree after three seconds, the metronome in your menu bar turns into a warning triangle.</p>
+        </div>
+        <div>
+          <div class="led text-xs text-zinc-500 tracking-widest mb-1.5">PAUSES WHEN ASKED</div>
+          <p class="text-zinc-300 leading-relaxed">Need the converter to stay put? Switch off <span class="text-zinc-100">Auto-sync</span> in the menu. Synklok keeps showing you the rates but stops changing anything.</p>
+        </div>
+        <div>
+          <div class="led text-xs text-zinc-500 tracking-widest mb-1.5">RECONNECTS</div>
+          <p class="text-zinc-300 leading-relaxed">If it can't reach the M-1620 — a cable pulled, the unit switched off — it tries again every three seconds, and can send you a notification when the connection drops.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 03 What you need ────────────────────────────────── -->
+  <section id="need" class="scroll-mt-14 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-20"><div class="max-w-4xl">
+      <p class="led text-xs text-green-400/80 tracking-[0.25em] mb-5">03 · WHAT YOU NEED</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-8">Four things</h2>
+
+      <div class="panel rounded-xl p-6 sm:p-8">
+        <ul class="space-y-5 text-zinc-400 leading-relaxed">
+          <li class="flex items-start gap-3"><span class="text-green-400 mt-0.5">✓</span><span><span class="text-zinc-100 font-medium">A Mac running macOS 14 Sonoma or newer</span> — Apple silicon or Intel.</span></li>
+          <li class="flex items-start gap-3"><span class="text-green-400 mt-0.5">✓</span><span><span class="text-zinc-100 font-medium">An RME M-1620 Pro D your Mac can reach</span> — by USB or over your network (see below).</span></li>
+          <li class="flex items-start gap-3"><span class="text-green-400 mt-0.5">✓</span><span><span class="text-zinc-100 font-medium">MADI arriving on the M-1620's coaxial input</span> — the round BNC connector. Optical MADI and word clock are on the roadmap.</span></li>
+          <li class="flex items-start gap-3"><span class="text-green-400 mt-0.5">✓</span><span><span class="text-zinc-100 font-medium">Local network permission.</span> macOS asks the first time you open Synklok. Even over USB the M-1620 shows up as a small network connection, so Synklok needs this either way. Missed it? System Settings → Privacy &amp; Security → Local Network.</span></li>
+        </ul>
+      </div>
+
+      <h3 class="mt-12 mb-4 text-xl font-semibold tracking-tight">Two ways to connect</h3>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="panel rounded-lg p-6 ring-1 ring-green-400/30">
+          <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">USB REMOTE · DEFAULT</span></div>
+          <p class="text-sm text-zinc-400 leading-relaxed">Plug a standard USB cable from your Mac into the USB port on the back of the M-1620. It appears at <span class="led text-zinc-200">172.20.0.1</span>, which is where Synklok looks by default — nothing to set up. The port carries control only, not audio.</p>
+        </div>
+        <div class="panel rounded-lg p-6">
+          <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">NETWORK · LAN</span></div>
+          <p class="text-sm text-zinc-400 leading-relaxed">If the M-1620 is on your studio network, open <span class="text-zinc-200">Settings → Connection</span>, turn on <span class="text-zinc-200">Use custom IP / hostname</span> and enter its address (like <span class="led text-zinc-200">192.168.1.42</span> or <span class="led text-zinc-200">m1620.local</span>) — or pick it from the devices Synklok finds. Press <span class="text-zinc-200">Test</span> to check.</p>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ── 04 Settings ─────────────────────────────────────── -->
+  <section id="settings" class="scroll-mt-14 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <p class="led text-xs text-green-400/80 tracking-[0.25em] mb-5">04 · SETTINGS</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Settings worth knowing</h2>
+      <p class="text-zinc-400 mb-10 max-w-xl">Click the metronome, then <span class="text-zinc-200">Settings…</span> There are two tabs: Connection and General.</p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="panel rounded-lg p-6">
+          <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">CONNECTION</span></div>
+          <h3 class="font-semibold text-lg mb-2">Custom address</h3>
+          <p class="text-sm text-zinc-400 leading-relaxed">Point Synklok at a network address instead of USB. <span class="text-zinc-200">Test</span> shows whether the M-1620 answers and what rate it's set to. RME devices found on your network are listed for one-click use.</p>
+        </div>
+        <div class="panel rounded-lg p-6">
+          <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">NOTIFY</span></div>
+          <h3 class="font-semibold text-lg mb-2">Notifications</h3>
+          <p class="text-sm text-zinc-400 leading-relaxed">A Mac notification when Synklok changes the rate, and another if the M-1620 disconnects. Both are on until you switch them off.</p>
+        </div>
+        <div class="panel rounded-lg p-6">
+          <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">MENU BAR</span></div>
+          <h3 class="font-semibold text-lg mb-2">Rate in the menu bar</h3>
+          <p class="text-sm text-zinc-400 leading-relaxed">Show the current rate — “96k” — right next to the metronome, so you can check it without clicking. Off by default.</p>
+        </div>
+        <div class="panel rounded-lg p-6">
+          <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">SUPPORT</span></div>
+          <h3 class="font-semibold text-lg mb-2">Copy diagnostics</h3>
+          <p class="text-sm text-zinc-400 leading-relaxed">Copies a plain-text report — versions, connection, rates, lock state and recent log lines — ready to paste into a message or a GitHub issue. Nothing is sent anywhere unless you paste it.</p>
+        </div>
+        <div class="panel rounded-lg p-6">
+          <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">UPDATES</span></div>
+          <h3 class="font-semibold text-lg mb-2">Automatic updates</h3>
+          <p class="text-sm text-zinc-400 leading-relaxed">Synklok checks synklok.app once a day and installs new versions in one click. Switch it off, or <span class="text-zinc-200">Check now</span>, in the General tab.</p>
+        </div>
+        <div class="panel rounded-lg p-6">
+          <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">STARTUP</span></div>
+          <h3 class="font-semibold text-lg mb-2">Launch at login</h3>
+          <p class="text-sm text-zinc-400 leading-relaxed">Start Synklok with your Mac so it's always watching. You'll also find this switch in the menu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 05 Good to know ─────────────────────────────────── -->
+  <section id="limits" class="scroll-mt-14 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-20"><div class="max-w-4xl">
+      <p class="led text-xs text-amber-300/80 tracking-[0.25em] mb-5">05 · HONEST LIMITS</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-8">Good to know</h2>
+
+      <div class="panel rounded-xl p-6 sm:p-8">
+        <ul class="space-y-6">
+          <li class="flex gap-4">
+            <span class="dot dot-amber mt-2"></span>
+            <div><div class="font-medium text-zinc-100">Tested on the M-1620 Pro D only</div><p class="text-sm text-zinc-400 mt-1 leading-relaxed">Other RME converters may have a similar remote-control interface, but Synklok hasn't been tried on them.</p></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="dot dot-amber mt-2"></span>
+            <div><div class="font-medium text-zinc-100">Coaxial MADI only, for now</div><p class="text-sm text-zinc-400 mt-1 leading-relaxed">Synklok follows the coaxial MADI input. If your M-1620 takes its clock from optical MADI or word clock, it won't follow yet — both are on the roadmap.</p></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="dot dot-amber mt-2"></span>
+            <div><div class="font-medium text-zinc-100">High sample rates over MADI — still being confirmed</div><p class="text-sm text-zinc-400 mt-1 leading-relaxed">MADI can carry 88.2 and 96 kHz in two ways: the “96k frame” or the older “S/MUX” method. RME's manual says the M-1620 can only detect the rate by itself with the 96k frame. We haven't confirmed yet how this affects Synklok. If it doesn't follow your session above 48 kHz, check your MADI interface's frame setting and <a href="https://github.com/blaisjohn/synklok/issues" class="text-green-300 hover:text-green-200 underline underline-offset-2">let us know</a>.</p></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="dot dot-on mt-2"></span>
+            <div><div class="font-medium text-zinc-100">Coming from the old M-1620 Rate Sync script?</div><p class="text-sm text-zinc-400 mt-1 leading-relaxed">If it's still installed, Synklok notices and shows you how to remove it, so the two don't fight over the rate.</p></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="dot dot-on mt-2"></span>
+            <div><div class="font-medium text-zinc-100">A free fix until RME's arrives</div><p class="text-sm text-zinc-400 mt-1 leading-relaxed">RME has said a future M-1620 firmware will follow its MADI input on its own. When that ships you may not need Synklok — until then, it does the job for free.</p></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="dot dot-on mt-2"></span>
+            <div><div class="font-medium text-zinc-100">Private by design</div><p class="text-sm text-zinc-400 mt-1 leading-relaxed">No accounts, no analytics. Besides your M-1620, Synklok only checks synklok.app once a day for updates.</p></div>
+          </li>
+        </ul>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ── CTA ─────────────────────────────────────────────── -->
+  <section class="border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Ready to <span class="glow-green">try it?</span></h2>
+      <p class="mt-4 text-zinc-400">Free and open source. Two minutes to install.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/download" class="inline-flex items-center gap-2 bg-green-400 hover:bg-green-300 text-zinc-950 font-semibold px-6 py-3 rounded-lg transition">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" class="w-4 h-4"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
+          Download for Mac
+        </a>
+        <a href="/#install" class="inline-flex items-center gap-2 border border-white/10 hover:border-white/25 text-zinc-200 font-medium px-6 py-3 rounded-lg transition">
+          Install steps
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ──────────────────────────────────────────── -->
+  <footer class="border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-10 flex flex-wrap items-center justify-between gap-4 text-sm text-zinc-500">
+      <div class="flex items-center gap-2">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-green-400"><path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/></svg>
+        <span class="font-medium text-zinc-300">Synklok</span><span class="text-zinc-600">·</span><span>© 2026</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <a href="https://github.com/blaisjohn/synklok" class="hover:text-zinc-200 transition">GitHub</a>
+        <a href="https://github.com/blaisjohn/synklok/blob/main/LICENSE" class="hover:text-zinc-200 transition">MIT License</a>
+        <span>Not affiliated with RME or Synthax</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
