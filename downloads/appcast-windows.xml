@@ -3,6 +3,22 @@
     <channel>
         <title>Synklok for Windows</title>
         <item>
+            <title>1.0.3</title>
+            <pubDate>Sat, 17 Oct 2026 21:56:22 -0500</pubDate>
+            <link>https://synklok.app</link>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>1.0.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>10.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<h3>Synklok 1.0.3 for Windows</h3>
+<ul>
+  <li><b>First Windows release.</b> A system-tray app for Windows 10 and 11 that keeps the M-1620 Pro D's sample rate matched to its MADI input, like the Mac version.</li>
+  <li><b>Automatic updates.</b> Synklok checks synklok.app once a day and asks before installing. Use <i>Check for updates…</i> in the tray menu, or turn automatic checks off in Settings.</li>
+  <li>Installs for your Windows account only; no administrator password needed.</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/blaisjohn/synklok/releases/download/windows-1.0.3/Synklok-1.0.3-4-Setup.exe" sparkle:os="windows-x64" sparkle:installerArguments="/update" type="application/octet-stream" sparkle:edSignature="yUWFZ1j8X21703XoRxBuLEBWWoSRubWQS07PtR/9ftYnVreIXihmIEfHKgW4lE3Q9bRVM314k+je86HEeZLbCg==" length="34307083"/>
+        </item>
+        <item>
             <title>1.0.3-test3</title>
             <pubDate>Sat, 17 Oct 2026 21:30:17 -0500</pubDate>
             <link>https://synklok.app</link>
