@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Synklok for Windows</title>
+        <item>
+            <title>1.0.3-test3</title>
+            <pubDate>Sat, 17 Oct 2026 21:30:17 -0500</pubDate>
+            <link>https://synklok.app</link>
+            <sparkle:version>3</sparkle:version>
+            <sparkle:shortVersionString>1.0.3-test3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>10.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<h3>Synklok 1.0.3 for Windows, test build 3</h3>
+<p>First Windows test build. Not code-signed yet.</p>
+]]></description>
+            <enclosure url="https://github.com/blaisjohn/synklok/releases/download/windows-1.0.3-test3/Synklok-1.0.3-test3-Setup.exe" sparkle:os="windows-x64" sparkle:installerArguments="/update" type="application/octet-stream" sparkle:edSignature="RajPHICOh2vyALan1EHzvBFAeguq7G7BAMV/yMxRYM+Bjvn9PP0OmqrOOxyR5zVj79jpt9bYycN2XXV2G4VECw==" length="34296601"/>
+        </item>
+    </channel>
+</rss>

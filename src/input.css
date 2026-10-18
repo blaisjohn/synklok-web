@@ -62,5 +62,8 @@ body { background: #0b0b0d; }
 /* Rate selector buttons in the demo */
 .rate-btn[aria-pressed="true"] { background: var(--led); color: #052e16; border-color: var(--led); }
 
+/* Mac / Windows switch above the install steps */
+.os-tab[aria-selected="true"] { background: var(--led); color: #052e16; }
+
 /* Patch cable between signal-chain modules */
 .cable { background: linear-gradient(90deg, rgba(74, 222, 128, 0.15), rgba(74, 222, 128, 0.6), rgba(74, 222, 128, 0.15)); }

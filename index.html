@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Synklok — Automatic sample rate sync for RME M-1620 Pro D</title>
-  <meta name="description" content="A tiny macOS menu bar app that keeps your RME M-1620 Pro D's sample rate matched to the incoming MADI input. Set it once. Sync forever." />
+  <title>Synklok — Free, open-source sample rate sync for the RME M-1620 Pro D</title>
+  <meta name="description" content="A free, open-source menu bar and system tray app for Mac and Windows that keeps your RME M-1620 Pro D's sample rate matched to the incoming MADI input. Set it once. Sync forever." />
   <meta name="theme-color" content="#0b0b0d" />
 
   <!-- Open Graph / social -->
-  <meta property="og:title" content="Synklok — Automatic sample rate sync for RME M-1620 Pro D" />
-  <meta property="og:description" content="A tiny macOS menu bar app that keeps your RME M-1620 Pro D matched to the incoming MADI rate." />
+  <meta property="og:title" content="Synklok — Free, open-source sample rate sync for the RME M-1620 Pro D" />
+  <meta property="og:description" content="A free, open-source Mac and Windows app that keeps your RME M-1620 Pro D matched to the incoming MADI rate." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://synklok.app" />
   <meta property="og:image" content="https://synklok.app/og.png" />
@@ -40,7 +40,8 @@
         <a href="/how-it-works/" class="hidden sm:inline hover:text-zinc-100 transition">How it works</a>
         <a href="#install" class="whitespace-nowrap hover:text-zinc-100 transition">Install</a>
         <a href="https://github.com/blaisjohn/synklok" class="hidden sm:inline hover:text-zinc-100 transition">GitHub</a>
-        <a href="/download" class="inline-flex items-center bg-green-400 hover:bg-green-300 text-zinc-950 font-semibold px-3 py-1.5 rounded-md transition">Download</a>
+        <a href="https://github.com/blaisjohn/synklok" class="sm:hidden hover:text-zinc-100 transition" aria-label="Synklok on GitHub"><svg viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.69-.01-1.35-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+        <a id="nav-download" href="/download" class="inline-flex items-center bg-green-400 hover:bg-green-300 text-zinc-950 font-semibold px-3 py-1.5 rounded-md transition">Download</a>
       </div>
     </div>
   </nav>
@@ -49,13 +50,17 @@
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(800px 400px at 50% 30%, rgba(74,222,128,0.10), transparent 70%)"></div>
     <div class="max-w-6xl mx-auto px-6 pt-20 pb-10 text-center relative">
-      <p class="led text-green-400/80 text-xs uppercase tracking-[0.3em] mb-5">MADI · Sample rate · Auto-follow</p>
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-9 h-9 sm:w-11 sm:h-11 text-green-400" aria-hidden="true"><path d="M9 2h6l4 18-2 2H7l-2-2L9 2zm2 4l-2 9h6l-2-9h-2z"/></svg>
+        <span class="text-4xl sm:text-5xl font-bold tracking-tight">Synklok</span>
+      </div>
+      <a href="#open-source" class="inline-block mb-10 text-lg sm:text-xl font-semibold text-green-300 hover:text-green-200 underline-offset-4 hover:underline transition">Free &amp; open source</a>
       <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight leading-[0.95]">
         Your M-1620<br/><span class="glow-green">keeps up now.</span>
       </h1>
       <p class="mt-6 text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
         Your DAW switches to 96k. Your MADI interface follows. Synklok makes sure your
-        <span class="whitespace-nowrap">RME M-1620 Pro D</span> does too — automatically, from your menu bar.
+        <span class="whitespace-nowrap">RME M-1620 Pro D</span> does too — automatically, from your Mac's menu bar or the Windows system tray.
       </p>
     </div>
 
@@ -112,12 +117,16 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" class="w-4 h-4"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
           Download for Mac
         </a>
+        <a href="/download-windows" class="inline-flex items-center gap-2 bg-green-400 hover:bg-green-300 text-zinc-950 font-semibold px-6 py-3 rounded-lg transition">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" class="w-4 h-4"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
+          Download for Windows
+        </a>
         <a href="https://github.com/blaisjohn/synklok" class="inline-flex items-center gap-2 border border-white/10 hover:border-white/25 text-zinc-200 font-medium px-6 py-3 rounded-lg transition">
           <svg viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.69-.01-1.35-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           View on GitHub
         </a>
       </div>
-      <p class="mt-4 text-center text-xs text-zinc-500 led">macOS 14+ · Free &amp; open source (MIT) · Updates itself · Windows coming soon</p>
+      <p class="mt-4 text-center text-xs text-zinc-500 led">macOS 14+ · Windows 10 &amp; 11 (test build) · Free &amp; open source (MIT) · Updates itself</p>
     </div>
   </section>
 
@@ -153,17 +162,17 @@
       <div class="panel rounded-lg p-6">
         <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">AUTO-SYNC</span></div>
         <h3 class="font-semibold text-lg mb-2">Set and forget</h3>
-        <p class="text-sm text-zinc-400 leading-relaxed">Lives in the menu bar, launches at login, updates itself. You stop thinking about clocking.</p>
+        <p class="text-sm text-zinc-400 leading-relaxed">Lives in the menu bar or system tray, launches at login, updates itself. You stop thinking about clocking.</p>
       </div>
       <div class="panel rounded-lg p-6">
         <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">STATUS</span></div>
         <h3 class="font-semibold text-lg mb-2">One glance</h3>
-        <p class="text-sm text-zinc-400 leading-relaxed">Device rate, MADI input, lock state and recent changes in one click — or just “96k” right in the menu bar.</p>
+        <p class="text-sm text-zinc-400 leading-relaxed">Device rate, MADI input, lock state and recent changes in one click — or just “96k” right in the Mac menu bar.</p>
       </div>
       <div class="panel rounded-lg p-6">
         <div class="flex items-center gap-2 mb-4"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">DIRECT</span></div>
         <h3 class="font-semibold text-lg mb-2">Talks to the hardware</h3>
-        <p class="text-sm text-zinc-400 leading-relaxed">A native Mac app using the M-1620's own control API. No accounts, no analytics — besides your M-1620, it only checks synklok.app once a day for updates.</p>
+        <p class="text-sm text-zinc-400 leading-relaxed">A native Mac and Windows app using the M-1620's own control API. No accounts, no analytics — besides your M-1620, it only checks synklok.app once a day for updates.</p>
       </div>
     </div>
   </section>
@@ -216,13 +225,57 @@
     </div>
   </section>
 
+  <!-- ── Open source ─────────────────────────────────────── -->
+  <section id="open-source" class="border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-6 py-24">
+      <p class="led text-xs text-green-400/80 tracking-[0.25em] mb-5">FREE · OPEN SOURCE</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Free and open source</h2>
+      <p class="text-zinc-400 mb-10 max-w-2xl leading-relaxed">Synklok costs nothing, and nothing is hidden. Its code is public on GitHub under the MIT license: read it, build it yourself, report a problem or send a fix.</p>
+
+      <div class="panel rounded-xl p-6 sm:p-8">
+        <ul class="grid sm:grid-cols-2 gap-x-10 gap-y-6">
+          <li>
+            <div class="flex items-center gap-2 mb-1.5"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">FREE</span></div>
+            <p class="text-sm text-zinc-300 leading-relaxed">No price, no paid tier, no trial, no sign-up. Every feature is in the download.</p>
+          </li>
+          <li>
+            <div class="flex items-center gap-2 mb-1.5"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">PRIVATE</span></div>
+            <p class="text-sm text-zinc-300 leading-relaxed">No accounts, analytics or tracking in the app. Besides your M-1620, it only checks synklok.app once a day for updates (the Windows version downloads them from GitHub).</p>
+          </li>
+          <li>
+            <div class="flex items-center gap-2 mb-1.5"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">MIT LICENSE</span></div>
+            <p class="text-sm text-zinc-300 leading-relaxed">Use it, change it and share it, for any purpose. The license is a few plain paragraphs.</p>
+          </li>
+          <li>
+            <div class="flex items-center gap-2 mb-1.5"><span class="dot dot-on"></span><span class="led text-xs text-zinc-400 tracking-widest">ON GITHUB</span></div>
+            <p class="text-sm text-zinc-300 leading-relaxed">All the code for the Mac and Windows apps, plus the scripts that build every release, so you can see exactly what you're installing.</p>
+          </li>
+        </ul>
+        <div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap gap-3">
+          <a href="https://github.com/blaisjohn/synklok" class="inline-flex items-center gap-2 bg-green-400 hover:bg-green-300 text-zinc-950 font-semibold px-5 py-2.5 rounded-lg transition">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.69-.01-1.35-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            View the source
+          </a>
+          <a href="https://github.com/blaisjohn/synklok/blob/main/LICENSE" class="inline-flex items-center gap-2 border border-white/10 hover:border-white/25 text-zinc-200 font-medium px-5 py-2.5 rounded-lg transition">Read the license</a>
+          <a href="https://github.com/blaisjohn/synklok/issues" class="inline-flex items-center gap-2 border border-white/10 hover:border-white/25 text-zinc-200 font-medium px-5 py-2.5 rounded-lg transition">Report an issue</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Install ─────────────────────────────────────────── -->
   <section id="install" class="border-t border-white/5">
     <div class="max-w-4xl mx-auto px-6 py-24">
       <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Install</h2>
-      <p class="text-zinc-400 mb-10 max-w-xl">Two minutes, once. After that Synklok checks for new versions daily and installs them in one click.</p>
+      <p class="text-zinc-400 mb-8 max-w-xl">Two minutes, once. After that Synklok checks for new versions daily and installs them in one click.</p>
 
-      <div class="panel rounded-xl p-6 sm:p-8">
+      <div id="os-tabs" role="tablist" aria-label="Choose your computer" class="hidden panel rounded-lg p-1 mb-4 gap-1">
+        <button type="button" role="tab" id="tab-mac" aria-controls="install-mac" aria-selected="true" class="os-tab led text-xs tracking-widest text-zinc-300 px-4 py-2 rounded-md transition">MAC</button>
+        <button type="button" role="tab" id="tab-windows" aria-controls="install-windows" aria-selected="false" class="os-tab led text-xs tracking-widest text-zinc-300 px-4 py-2 rounded-md transition">WINDOWS</button>
+      </div>
+
+      <div id="install-mac" role="tabpanel" aria-labelledby="tab-mac" class="panel rounded-xl p-6 sm:p-8">
+        <div class="led text-[11px] text-zinc-500 tracking-widest mb-6">macOS 14 or newer</div>
         <ol class="space-y-6">
           <li class="flex gap-4">
             <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">01</span>
@@ -243,6 +296,32 @@
           <li class="flex gap-4">
             <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">05</span>
             <div><div class="font-medium text-zinc-100">Find the metronome</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Synklok lives in the menu bar, not the Dock. Click the metronome for status, and turn on <span class="text-zinc-200">Launch at login</span>.</div></div>
+          </li>
+        </ol>
+      </div>
+
+      <div id="install-windows" role="tabpanel" aria-labelledby="tab-windows" class="panel rounded-xl p-6 sm:p-8 mt-4">
+        <div class="led text-[11px] text-zinc-500 tracking-widest mb-6">Windows 10 or 11, 64-bit</div>
+        <ol class="space-y-6">
+          <li class="flex gap-4">
+            <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">01</span>
+            <div><div class="font-medium text-zinc-100">Download Synklok</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed"><a href="/download-windows" class="text-green-300 hover:text-green-200 underline underline-offset-2">Download the installer</a> for Windows 10 or 11 (64-bit). This first Windows version is a test build and isn't code-signed yet; a signed version is on the way and test copies update to it on their own.</div></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">02</span>
+            <div><div class="font-medium text-zinc-100">Run the installer</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Open the downloaded <span class="text-zinc-200">Synklok-…-Setup.exe</span> and click <span class="text-zinc-200">Install</span>. It installs for your Windows account only, so there's no administrator password. Because it isn't signed yet, Windows will say <span class="text-zinc-200">“Windows protected your PC”</span>: click <span class="text-zinc-200">More info → Run anyway</span>.</div></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">03</span>
+            <div><div class="font-medium text-zinc-100">Find the metronome</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Synklok lives in the system tray by the clock. Windows 11 tucks new icons away: click the <span class="text-zinc-200">^</span> arrow and drag the metronome onto the taskbar to keep it in view. Left-click it for status, right-click for the menu.</div></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">04</span>
+            <div><div class="font-medium text-zinc-100">Connect the M-1620</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Over USB REMOTE it connects on its own. On a network, right-click the metronome → <span class="text-zinc-200">Settings</span> and enter the M-1620's address (shown on its STATE → network page).</div></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="led flex-shrink-0 w-8 h-8 rounded-md window flex items-center justify-center glow-green text-sm">05</span>
+            <div><div class="font-medium text-zinc-100">Turn on Launch at login</div><div class="text-sm text-zinc-400 mt-1 leading-relaxed">Right-click the metronome and tick <span class="text-zinc-200">Launch at login</span> so Synklok is always watching. To remove it later: Settings → Apps → Synklok → Uninstall.</div></div>
           </li>
         </ol>
       </div>
@@ -270,12 +349,16 @@
         <div class="panel rounded-xl p-6">
           <div class="flex items-center justify-between mb-4">
             <span class="font-semibold">Windows</span>
-            <span class="flex items-center gap-2 led text-[11px] text-amber-300"><span class="dot dot-amber"></span>COMING SOON</span>
+            <span class="flex items-center gap-2 led text-[11px] text-amber-300"><span class="dot dot-amber"></span>TEST BUILD</span>
           </div>
-          <p class="text-sm text-zinc-400 leading-relaxed">
-            A native Windows 10 / 11 build is on the roadmap. The core sync logic is the same — only
-            the menu bar / UI layer needs porting. Star the GitHub repo to be notified when it lands.
-          </p>
+          <ul class="space-y-2 text-sm text-zinc-400">
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>Windows 10 or 11, 64-bit</span></li>
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>System tray app with the same sync engine as the Mac version</span></li>
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>Installs per user and updates itself</span></li>
+            <li class="flex items-start gap-2"><span class="text-amber-300 mt-0.5">!</span><span>Test build: not code-signed yet, so Windows warns before installing</span></li>
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>On a network, enter the M-1620's address in Settings (the Mac finds it automatically)</span></li>
+          </ul>
+          <a href="/download-windows" class="mt-5 inline-flex items-center gap-2 text-sm text-green-300 hover:text-green-200 underline underline-offset-2">Download for Windows</a>
         </div>
       </div>
       <p class="mt-6 text-sm text-zinc-400">Both versions require the <span class="text-zinc-200">RME M-1620 Pro D</span> connected via USB REMOTE or on the same LAN.</p>
@@ -298,6 +381,20 @@
   </footer>
 
   <script>
+    // Mac / Windows install steps. Without JavaScript both lists show.
+    const isWindows = /Windows/.test(navigator.userAgent);
+    if (isWindows) document.getElementById('nav-download').href = '/download-windows';
+    const tabs = document.querySelectorAll('.os-tab');
+    const showOS = os => tabs.forEach(tab => {
+      const on = tab.id === `tab-${os}`;
+      tab.setAttribute('aria-selected', on);
+      document.getElementById(tab.getAttribute('aria-controls')).hidden = !on;
+    });
+    tabs.forEach(tab => tab.addEventListener('click', () => showOS(tab.id.slice(4))));
+    document.getElementById('os-tabs').classList.replace('hidden', 'inline-flex');
+    document.getElementById('install-windows').classList.remove('mt-4');
+    showOS(isWindows ? 'windows' : 'mac');
+
     // Rack demo: the MADI display jumps to the new rate; the device display
     // goes amber, then Synklok "catches up" and both lock green.
     const madi = document.getElementById('disp-madi');
