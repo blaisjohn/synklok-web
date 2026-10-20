@@ -225,6 +225,39 @@
     </div>
   </section>
 
+  <!-- ── RateSync (ramses) ───────────────────────────────── -->
+  <section id="ratesync" class="border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-24">
+      <p class="led text-xs text-green-400/80 tracking-[0.25em] mb-4">ALSO FOR WINDOWS</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Running several RME devices on Windows?</h2>
+      <p class="text-zinc-400 mb-10 max-w-2xl leading-relaxed">
+        Check out <span class="text-zinc-200">RateSync</span> by ramses, a long-time regular on the RME forum.
+        Synklok and RateSync came out of the same forum conversation about keeping RME gear in sync.
+      </p>
+
+      <div class="panel rounded-xl p-6 sm:p-8 grid md:grid-cols-[1fr_auto] gap-8 items-center">
+        <div>
+          <div class="flex items-center gap-2 mb-5">
+            <span class="dot dot-on"></span>
+            <span class="led text-xs text-zinc-400 tracking-widest">RATESYNC · BY RAMSES · WINDOWS</span>
+          </div>
+          <ul class="space-y-3 text-sm text-zinc-300">
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>Reads the sample rate from your clock master and sets every other device to match</span></li>
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>Recording interfaces through their ASIO driver; RME network devices like the <span class="whitespace-nowrap">M-1620 Pro D</span>, 12Mic and M-32 over the network, found automatically</span></li>
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>Optionally loads one of a device's user configs for each sample rate, routing and all</span></li>
+            <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">✓</span><span>A small on-screen “Cube” shows every device's rate at a glance, with Auto, Manual and Pause modes</span></li>
+          </ul>
+          <p class="mt-5 text-xs text-zinc-500 leading-relaxed">Built with AutoHotkey. The download, setup steps and support are in ramses's thread on the RME forum.</p>
+        </div>
+        <a href="https://forum.rme-audio.de/viewtopic.php?id=43678" target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-2 bg-green-400 hover:bg-green-300 text-zinc-950 font-semibold px-6 py-3 rounded-lg transition whitespace-nowrap">
+          RateSync on the RME forum
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" class="w-4 h-4"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Open source ─────────────────────────────────────── -->
   <section id="open-source" class="border-t border-white/5">
     <div class="max-w-4xl mx-auto px-6 py-24">
@@ -330,7 +363,7 @@
   </section>
 
   <!-- ── Compatibility ───────────────────────────────────── -->
-  <section class="border-t border-white/5">
+  <section id="compatibility" class="border-t border-white/5">
     <div class="max-w-4xl mx-auto px-6 py-24">
       <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-8">Compatibility</h2>
       <div class="grid sm:grid-cols-2 gap-4">
@@ -360,9 +393,8 @@
           </ul>
           <a href="/download-windows" class="mt-5 inline-flex items-center gap-2 text-sm text-green-300 hover:text-green-200 underline underline-offset-2">Download for Windows</a>
           <div class="mt-5 pt-4 border-t border-white/5 text-sm text-zinc-400 leading-relaxed">
-            <span class="text-zinc-200">Running several RME devices on Windows?</span>
-            Check out <a href="https://forum.rme-audio.de/viewtopic.php?id=43678" target="_blank" rel="noopener" class="text-green-300 hover:text-green-200 underline underline-offset-2">RateSync by ramses</a>:
-            it reads your clock master and sets your recording interfaces and RME network devices to match.
+            <span class="text-zinc-200">Several RME devices on Windows?</span>
+            See <a href="#ratesync" class="text-green-300 hover:text-green-200 underline underline-offset-2">RateSync by ramses</a>.
           </div>
         </div>
       </div>
